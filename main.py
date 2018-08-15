@@ -7,7 +7,7 @@ app.config.from_pyfile('settings/development_settings.cfg')
 
 @app.route("/game", methods=['GET'])
 def index():
-    return app.send_static_file('index.html')
+    return send_from_directory('/','index.html')
 
 
 if __name__ == "__main__":
