@@ -5,7 +5,7 @@ app = Flask(__name__)
 app.config.from_pyfile('settings/development_settings.cfg')
 
 
-@app.route("/", methods=['GET'])
+@app.route("/game", methods=['GET'])
 def index():
     return app.send_static_file('index.html')
 
