@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>hello phaser!</title>
-        <script src="static/phaser.min.js"></script>
+        <script src="phaser.min.js"></script>
     </head>
     <body>
 
@@ -16,8 +16,8 @@
         //  Be sure to replace it with an updated version before you start experimenting with adding your own code.
         var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
         function preload () {
-            //game.load.image('logo', '../Images/phaser.png');
-            game.load.image('music',  '../Images/icons8-music-50.png');
+            //game.load.image('logo', 'Images/phaser.png');
+            game.load.image('music',  'Images/icons8-music-50.png');
         }
         function create () {
             
