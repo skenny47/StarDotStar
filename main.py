@@ -7,7 +7,7 @@ app.config.from_pyfile('settings/development_settings.cfg')
 
 @app.route("/", methods=['GET'])
 def index():
-    return app.send_static_file('static/js/index.html')
+    return app.send_static_file('static/index.html')
 
 
 if __name__ == "__main__":
