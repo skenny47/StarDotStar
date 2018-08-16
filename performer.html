@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Performer</title>
+        <script src="phaser.min.js"></script>
+        <script src="utilities.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+    
+    window.onload = function() {
+        /* global Phaser */ 
+        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
+        function preload () {
+           
+            game.load.image('eighthNotes',  'Images/icons8-music-50.png');
+        }
+        function create () {
+            
+            game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, ReceiveGlobalEvents, this);
+            game.stage.backgroundColor = "0800ff";
+            
+            
+            var gfx = game.add.graphics(0,0);
+            gfx.lineStyle(10, 0x33FF00);
+            gfx.moveTo(game.width/5,game.height);
+            gfx.lineTo(game.width/5,0);
+         
+          function changeColor () {
+              var c = Phaser.Color.getRandomColor(50, 255, 255) ;
+              game.stage.backgroundColor = c ;
+            }
+        
+            function ReceiveGlobalEvents() {
+                var eighthNotes = game.add.sprite(game.world.centerX, game.world.centerY, 'eighthNotes');
+                eighthNotes.inputEnabled = true;
+                eighthNotes.events.onInputDown.add(changeColor,this);
+            }
+        
+        }
+    };
+    </script>
+
+    </body>
+</html>
