@@ -17,7 +17,7 @@ def index():
 @app.route("/globals", methods=['GET'])
 #@cross_origin(origin='*')
 def globals():
-    response = jsonify(json.dumps(server_globals))
+    response = jsonify(server_globals)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
