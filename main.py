@@ -1,5 +1,5 @@
 from flask import Flask, render_template, send_from_directory, json
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 server_globals = {
     "parts" : "4",
@@ -15,6 +15,7 @@ def index():
     return send_from_directory('.','performer.html')
     
 @app.route("/globals", methods=['GET'])
+@cross_origin(origin='*')
 def globals():
     return json.dumps(server_globals)
 
