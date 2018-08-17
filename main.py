@@ -1,4 +1,5 @@
 from flask import Flask, render_template, send_from_directory, json
+from flask_cors import CORS
 
 server_globals = {
     "parts" : "4",
