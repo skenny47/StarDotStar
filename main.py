@@ -10,7 +10,7 @@ def index():
     return send_from_directory('.','performer.html')
     
 @app.route("/parts", methods=['GET'])
-def index():
+def parts():
     return "4"
 
 if __name__ == "__main__":
