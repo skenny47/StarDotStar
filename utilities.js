@@ -1,3 +1,6 @@
+
+/*global Phaser*/
+
 function getAllUrlParams(url) {
 
   // get query string from url (optional) or window
@@ -58,4 +61,29 @@ function getAllUrlParams(url) {
   }
 
   return obj;
+}
+
+function DrawGrid(game,parts){
+  var gfx = game.add.graphics(0,0);
+  gfx.lineStyle(10, 0x33FF00);
+  /* draw 'now' vertical line */
+  gfx.moveTo(game.width/5,game.height);
+  gfx.lineTo(game.width/5,0);
+  /* draw horizontal line for each part */
+  var step;
+  for (step = 1; step < parts; step++) 
+  {
+      gfx.moveTo(0,step * (game.height/parts));
+      gfx.lineTo(game.width,step * (game.height/parts));
+  }
+                
+}
+
+function PlaceEventIcon(game,iconName,x,y)
+{
+  var sprite = game.add.sprite(x,y, iconName);
+  sprite.inputEnabled = true;
+  game.physics.enable(sprite, Phaser.Physics.ARCADE);
+  sprite.body.velocity.x = -50;
+  sprite.lifespan = 10000;
 }
