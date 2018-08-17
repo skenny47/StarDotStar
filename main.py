@@ -1,5 +1,10 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, json
 
+server_globals = 
+{
+    "parts" : "4",
+    "other" : "undefined"
+}
 
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
@@ -9,9 +14,9 @@ app.config.from_pyfile('settings/development_settings.cfg')
 def index():
     return send_from_directory('.','performer.html')
     
-@app.route("/parts", methods=['GET'])
-def parts():
-    return "4"
+@app.route("/globals", methods=['GET'])
+def globals():
+    return json.dumps(server_globals)
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug = True, port = 4747)

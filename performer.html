@@ -24,7 +24,7 @@
         
         function create () {
            // game.debug.text( "foobar", 100, 280 );
-            game.time.events.repeat(Phaser.Timer.SECOND/10, 1000000000, ReceiveGlobalEvents, this);
+            game.time.events.repeat(Phaser.Timer.SECOND/2, 1000000000, ReceiveGlobalEvents, this);
             game.stage.backgroundColor = "0800ff";
            
             var score = "score";
@@ -34,11 +34,10 @@
             }
             if (partNumber.valueOf() == score.valueOf()){
                 
-                game.load.json('parts', 'http://http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747/parts');
-                var partsJSON = game.cache.getJSON('parts');
-                //TODO: contact server to get number of parts
-                var parts = partsJSON.parts
-                
+                game.load.json('globals', 'http://http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747/globals');
+                var globals = game.cache.getJSON('globals');
+                var parts = globals.parts;
+                // game.debug.text( "parts = "+parts, 100, 280 );
                 DrawGrid(game,parts);
                 
             }else{
