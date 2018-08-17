@@ -34,8 +34,10 @@
             }
             if (partNumber.valueOf() == score.valueOf()){
                 
+                game.load.json('parts', 'http://http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747/parts');
+                var partsJSON = game.cache.getJSON('parts');
                 //TODO: contact server to get number of parts
-                var parts = 4; // for now
+                var parts = partsJSON.parts
                 
                 DrawGrid(game,parts);
                 
@@ -47,7 +49,7 @@
             function ReceiveGlobalEvents() {
                 var x = game.rnd.integerInRange(0, game.width);
                 var y = game.rnd.integerInRange(0, game.height);
-                game.debug.text( "x,y = "+x+","+y, 100, 280 );
+                //game.debug.text( "x,y = "+x+","+y, 100, 280 );
                 PlaceEventIcon(game,'eighthNotes',x,y);
                 
             }

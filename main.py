@@ -8,7 +8,10 @@ app.config.from_pyfile('settings/development_settings.cfg')
 @app.route("/performer", methods=['GET'])
 def index():
     return send_from_directory('.','performer.html')
-
+    
+@app.route("/parts", methods=['GET'])
+def index():
+    return "4"
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug = True, port = 4747)
