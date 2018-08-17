@@ -7,6 +7,7 @@ server_globals = {
 }
 
 app = Flask(__name__,static_url_path = "", static_folder = ".")
+CORS(app)
 app.config.from_pyfile('settings/development_settings.cfg')
 
 

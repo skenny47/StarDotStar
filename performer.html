@@ -43,7 +43,7 @@
                 var xhr = new XMLHttpRequest();
                 // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                // xhr.addEventListener("readystatechange", processRequest, false);
-                game.load.json('data', url);
+                
                 xhr.open('GET',url, false);
                 xhr.send();
                 var globals = JSON.parse(xhr.responseText);
