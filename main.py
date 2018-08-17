@@ -1,7 +1,6 @@
 from flask import Flask, render_template, send_from_directory, json
 
-server_globals = 
-{
+server_globals = {
     "parts" : "4",
     "other" : "undefined"
 }
