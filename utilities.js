@@ -85,5 +85,5 @@ function PlaceEventIcon(game,iconName,x,y)
   sprite.inputEnabled = true;
   game.physics.enable(sprite, Phaser.Physics.ARCADE);
   sprite.body.velocity.x = -50;
-  sprite.lifespan = 10000;
+  sprite.lifespan = 15000;
 }

@@ -32,25 +32,27 @@
             if (typeof partNumber == 'undefined'){
                 partNumber = "score";
             }
+            DrawGrid(game,4);
             if (partNumber.valueOf() == score.valueOf()){
                 
-                var foo = game.load.json('globals', 
+               /* var foo = game.load.json('globals', 
                         'http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747/globals');
                 var globals = game.cache.getJSON('globals');
-                var parts = globals.parts; 
+                var parts = globals.parts; */
                 
                 var url = "http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747/globals";
                 var xhr = new XMLHttpRequest();
                 // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                // xhr.addEventListener("readystatechange", processRequest, false);
-                
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.open('GET',url, false);
                 xhr.send();
                 var globals = JSON.parse(xhr.responseText);
                 var parts = globals.parts;
                 game.debug.text( "parts = "+parts, 100, 280 );
                 
-                DrawGrid(game,parts);
+                //DrawGrid(game,parts);
                 
             }else{
                  
