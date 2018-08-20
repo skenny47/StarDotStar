@@ -1,10 +1,8 @@
 from flask import Flask, render_template, send_from_directory, json, jsonify
 #from flask_cors import CORS, cross_origin
+import globals
 
-server_globals = {
-    "parts" : "4",
-    "other" : "undefined"
-}
+server_globals = globals.server_globals
 
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
