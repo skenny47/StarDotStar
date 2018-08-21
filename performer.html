@@ -16,6 +16,10 @@
     (function() { // Begin scoping function
     
     var homeBaseUrl = "http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747";
+    var X;
+    var Y;
+    var Xold = 0;
+    var Yold = 0;
     window.onload = function() {
         var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
                 { preload: preload, create: create, update: update });
@@ -68,19 +72,22 @@
         function update() {
             if (game.input.activePointer.isDown)
             {
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == XMLHttpRequest.DONE) {
-                        
-                    } 
-                };
-                var reportUrl = homeBaseUrl 
-                    + "/newEvent?x="+game.input.x
-                    + "&y=" +game.input.y
-                    + "&icon="
-                    + "eighthNotes";
-                xhr.open('GET',reportUrl , true);
-                xhr.send(null);
+                X = game.input.x;
+                Y = game.input.Y;
+                if ((X.valueOf!= Xold.valueOf) && (Y.valueOf!= Yold.valueOf)){
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == XMLHttpRequest.DONE) {
+                            
+                        } 
+                    };
+                    var reportUrl = homeBaseUrl 
+                        + "/newEvent?x="+ X + "&y=" + Y + "&icon=" + "eighthNotes";
+                    xhr.open('GET',reportUrl , true);
+                    xhr.send(null);
+                    Xold = X;
+                    Yold = Y;
+                }
             }
         }
             
