@@ -35,7 +35,7 @@ def newEvent():
   y = request.args.get('y', default = 0, type = int)
   icon = request.args.get('icon', default = '*', type = str)
   events.append(StarDotStarEvent(x,y,icon,datetime.datetime.now()))
-  return ('', httplib.client.NO_CONTENT)
+  return ('', 204)
   
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug = True, port = 4747)
