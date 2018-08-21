@@ -73,11 +73,12 @@
                         
                     }
                 };
-                xhr.open('GET', homeBaseUrl 
+                var reportUrl = homeBaseUrl 
                     + "/newEvent?x="+game.input.x
                     + "&y=" +game.input.y
                     + "&icon="
-                    + "eightnotes", true);
+                    + "eighthNotes";
+                xhr.open('GET',reportUrl , true);
                 xhr.send(null);
             }
         }
