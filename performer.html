@@ -18,11 +18,9 @@
     var homeBaseUrl = "http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747";
     var X;
     var Y;
-    var Xold = 0;
-    var Yold = 0;
     window.onload = function() {
         var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
-                { preload: preload, create: create, update: update });
+                { preload: preload, create: create /*, update: update*/  });
         function preload () {
            
             game.load.image('eighthNotes',  'Images/icons8-music-50.png');
@@ -34,6 +32,8 @@
             game.time.events.repeat(Phaser.Timer.SECOND/2, 1000000000, ReceiveGlobalEvents, this);
             game.stage.backgroundColor = "0800ff";
            
+           game.input.onDown.add(IconPlaced, this);
+         
             // Establish 'score' as the default
             var score = "score";
             var partNumber = getAllUrlParams().part;
@@ -69,26 +69,21 @@
             
         }
         
-        function update() {
-            if (game.input.activePointer.isDown)
-            {
-                X = game.input.x;
-                Y = game.input.y;
-                if ((X.valueOf() != Xold.valueOf()) && (Y.valueOf()!= Yold.valueOf())){
-                    var xhr = new XMLHttpRequest();
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState == XMLHttpRequest.DONE) {
-                            
-                        } 
-                    };
-                    var reportUrl = homeBaseUrl 
-                        + "/newEvent?x="+ X + "&y=" + Y + "&icon=" + "eighthNotes";
-                    xhr.open('GET',reportUrl , true);
-                    xhr.send(null);
-                    Xold = X;
-                    Yold = Y;
-                }
-            }
+        
+        function IconPlaced(pointer) {
+            X = pointer.x;
+            Y = pointer.y;
+      
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    
+                } 
+            };
+            var reportUrl = homeBaseUrl 
+                + "/newEvent?x="+ X + "&y=" + Y + "&icon=" + "eighthNotes";
+            xhr.open('GET',reportUrl , true);
+            xhr.send(null);
         }
             
     };
