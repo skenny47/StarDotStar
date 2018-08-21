@@ -73,8 +73,8 @@
             if (game.input.activePointer.isDown)
             {
                 X = game.input.x;
-                Y = game.input.Y;
-                if ((X.valueOf!= Xold.valueOf) && (Y.valueOf!= Yold.valueOf)){
+                Y = game.input.y;
+                if ((X.valueOf() != Xold.valueOf()) && (Y.valueOf()!= Yold.valueOf())){
                     var xhr = new XMLHttpRequest();
                     xhr.onreadystatechange = function() {
                         if (xhr.readyState == XMLHttpRequest.DONE) {
