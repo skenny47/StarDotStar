@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, send_from_directory, json, jsonify
-import datetime
+import datetime, httplib
 import globals
 
 server_globals = globals.server_globals
@@ -35,7 +35,7 @@ def newEvent():
   y = request.args.get('y', default = 0, type = int)
   icon = request.args.get('icon', default = '*', type = str)
   events.append(StarDotStarEvent(x,y,icon,datetime.datetime.now()))
-  return
+  return ('', httplib.client.NO_CONTENT)
   
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug = True, port = 4747)
