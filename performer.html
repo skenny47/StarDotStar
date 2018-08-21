@@ -13,8 +13,9 @@
     /* global getAllUrlParams */
     /* global DrawGrid */
     /* global PlaceEventIcon */
+    /* global homeBaseUrl */
     window.onload = function() {
-        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
+        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
         
         function preload () {
            
@@ -57,11 +58,30 @@
                 var x = game.rnd.integerInRange(0, game.width);
                 var y = game.rnd.integerInRange(0, game.height);
                 //game.debug.text( "x,y = "+x+","+y, 100, 280 );
-                PlaceEventIcon(game,'eighthNotes',x,y);
+               // PlaceEventIcon(game,'eighthNotes',x,y);
                 
             }
             
         }
+        
+        function update() {
+            if (game.input.activePointer.isDown)
+            {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        
+                    }
+                };
+                xhr.open('GET', homeBaseUrl 
+                    + "/newEvent?x="+game.input.x
+                    + "&y=" +game.input.y
+                    + "&icon="
+                    + "eightnotes", true);
+                xhr.send(null);
+            }
+        }
+            
     };
     </script>
 
