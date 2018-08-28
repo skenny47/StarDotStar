@@ -48,8 +48,8 @@ def getEvents():
     #t = request.args.get('t') 
     e = events[-1]  # shortcut to last element
     app.logger.info('Sent Event : ' + str(e.x) + ',' + str(e.y) + ' Icon : ' + e.icon)
-    returnJson = json.dumps(e, default=serialize)
-    #returnJson = json.dumps(e.__dict__)
+    #returnJson = json.dumps(e, default=serialize)
+    returnJson = json.dumps(e.__dict__)
     #response = jsonify(returnJson)  # The latest event
     response.headers.add('Access-Control-Allow-Origin', '*')
     return returnJson
