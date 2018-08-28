@@ -71,7 +71,8 @@
                     }
                 };
                 var timeValue=getCurrentTime();
-                xhr.open('GET', homeBaseUrl + "/getEvents?t="+timeValue, true);
+                //xhr.open('GET', homeBaseUrl + "/getEvents?t="+timeValue, true);
+                xhr.open('GET', homeBaseUrl + "/getEvents?t=foobar", true);
                 xhr.send(null);
               
                 
