@@ -21,7 +21,7 @@ app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
 
 formatter = logging.Formatter("[%(asctime)s] %(message)s")
-handler = TimedRotatingFileHandler('~ubuntu/LOG/Logfile', when='midnight',                                    interval=1, backupCount=5)
+handler = TimedRotatingFileHandler('../LOG/Logfile', when='midnight',                                    interval=1, backupCount=5)
 handler.setLevel(logging.INFO)
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
