@@ -26,6 +26,13 @@ handler.setLevel(logging.INFO)
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
 
+def serialize(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, datetime):
+        serial = obj.isoformat()
+        return serial
+    return obj.__dict__
+
 @app.route("/performer", methods=['GET'])
 def index():
     return send_from_directory('.','performer.html')
@@ -41,10 +48,11 @@ def getEvents():
     #t = request.args.get('t') 
     e = events[-1]  # shortcut to last element
     app.logger.info('Sent Event : ' + str(e.x) + ',' + str(e.y) + ' Icon : ' + e.icon)
-    returnJson = json.dumps(e.__dict__)
-    response = jsonify(returnJson)  # The latest event
+    returnJson = json.dumps(e, default=serialize)
+    #returnJson = json.dumps(e.__dict__)
+    #response = jsonify(returnJson)  # The latest event
     response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    return returnJson
     
 @app.route('/newEvent')
 def newEvent():
