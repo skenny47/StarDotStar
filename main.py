@@ -19,7 +19,7 @@ events = [ ]
 
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
-events.append(StarDotStarEvent(0,0,'',datetime.datetime.now()))
+events.append(StarDotStarEvent(47,47,'',datetime.datetime.now()))
 formatter = logging.Formatter("[%(asctime)s] %(message)s")
 handler = TimedRotatingFileHandler('../LOG/Logfile', when='midnight',                                    interval=1, backupCount=5)
 handler.setLevel(logging.INFO)
@@ -38,10 +38,11 @@ def globals():
 
 @app.route("/getEvents", methods=['GET'])
 def getEvents():
-    t = request.args.get('t') 
+    #t = request.args.get('t') 
     e = events[-1]  # shortcut to last element
     app.logger.info('Sent Event : ' + str(e.x) + ',' + str(e.y) + ' Icon : ' + e.icon)
-    response = jsonify(e)  # The latest event
+    #response = jsonify(e)  # The latest event
+    response = jsonify(server_globals)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
     
