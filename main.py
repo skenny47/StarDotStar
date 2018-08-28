@@ -1,6 +1,9 @@
 from flask import Flask, request, render_template, send_from_directory, json, jsonify
 import datetime, httplib
 import globals
+import logging
+from logging.handlers import TimedRotatingFileHandler
+from flask import Flask
 
 server_globals = globals.server_globals
 
@@ -16,14 +19,18 @@ events = [ ]
 
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
-#CORS(app)
+
+formatter = logging.Formatter("[%(asctime)s] %(message)s")
+handler = TimedRotatingFileHandler('~ubuntu/LOG/Logfile', when='midnight',                                    interval=1, backupCount=5)
+handler.setLevel(logging.INFO)
+handler.setFormatter(formatter)
+app.logger.addHandler(handler)
 
 @app.route("/performer", methods=['GET'])
 def index():
     return send_from_directory('.','performer.html')
     
 @app.route("/globals", methods=['GET'])
-#@cross_origin(origin='*')
 def globals():
     response = jsonify(server_globals)
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -35,6 +42,7 @@ def newEvent():
   y = request.args.get('y', default = 0, type = int)
   icon = request.args.get('icon', default = '*', type = str)
   events.append(StarDotStarEvent(x,y,icon,datetime.datetime.now()))
+  app.logger.info('Appended Event : ' + x + ',' + y + 'Icon : ' + icon)
   return ('', 204)
   
 if __name__ == "__main__":
