@@ -47,7 +47,7 @@ def getEvents():
     
 @app.route('/newEvent')
 def newEvent():
-  x = request.args.get('x', default = 0, type = int)
+  x = request.args.get('x', default = 0, type = int) 
   y = request.args.get('y', default = 0, type = int)
   icon = request.args.get('icon', default = '*', type = str)
   events.append(StarDotStarEvent(x,y,icon,datetime.datetime.now()))
