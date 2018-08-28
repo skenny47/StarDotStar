@@ -42,7 +42,7 @@ def newEvent():
   y = request.args.get('y', default = 0, type = int)
   icon = request.args.get('icon', default = '*', type = str)
   events.append(StarDotStarEvent(x,y,icon,datetime.datetime.now()))
-  app.logger.info('Appended Event : ' + x + ',' + y + 'Icon : ' + icon)
+  app.logger.info('Appended Event : ' + str(x) + ',' + str(y) + 'Icon : ' + icon)
   return ('', 204)
   
 if __name__ == "__main__":
