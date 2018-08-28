@@ -36,13 +36,20 @@ def globals():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+@app.route("/getEvents", methods=['GET'])
+def getEvents():
+    t = request.args.get('y', default = '', type = string)
+    response = jsonify(events[events.count()-1])  # The latest event
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+    
 @app.route('/newEvent')
 def newEvent():
   x = request.args.get('x', default = 0, type = int)
   y = request.args.get('y', default = 0, type = int)
   icon = request.args.get('icon', default = '*', type = str)
   events.append(StarDotStarEvent(x,y,icon,datetime.datetime.now()))
-  app.logger.info('Appended Event : ' + str(x) + ',' + str(y) + 'Icon : ' + icon)
+  app.logger.info('Appended Event : ' + str(x) + ',' + str(y) + ' Icon : ' + icon)
   return ('', 204)
   
 if __name__ == "__main__":

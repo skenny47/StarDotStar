@@ -87,3 +87,9 @@ function PlaceEventIcon(game,iconName,x,y)
   sprite.body.velocity.x = -50;
   sprite.lifespan = 15000;
 }
+
+function getCurrentTime(){
+    var currentdate = new Date(); 
+    var time = currentdate.getHours() + ":"  + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+    return time;
+}

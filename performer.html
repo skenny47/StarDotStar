@@ -13,6 +13,7 @@
     /* global getAllUrlParams */
     /* global DrawGrid */
     /* global PlaceEventIcon */
+    /* global getCurrentTime */
     (function() { // Begin scoping function
     
     var homeBaseUrl = "http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747";
@@ -36,21 +37,20 @@
          
             // Establish 'score' as the default
             var score = "score";
-            var partNumber = getAllUrlParams().part;
+            var partIdentifier = getAllUrlParams().part;
             if (typeof partNumber == 'undefined'){
-                partNumber = "score";
+                partIdentifier = "score";
             }
             
-            if (partNumber.valueOf() == score.valueOf())
-            {
+            if (partIdentifier.valueOf() == score.valueOf())
+            { // If this is the SCORE version of Perfoamer
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
-                        //alert(xhr.responseText);
                         var globals = JSON.parse(xhr.responseText);
-                        var parts = globals.parts;
-                        game.debug.text( "parts = "+parts, 100, 280 );
-                        DrawGrid(game,parts);
+                        var numberOfParts = globals.parts;
+                        game.debug.text( "parts = "+numberOfParts, 100, 280 );
+                        DrawGrid(game,numberOfParts);
                     }
                 };
                 xhr.open('GET', homeBaseUrl + "/globals", true);
@@ -60,10 +60,20 @@
             }
             
             function ReceiveGlobalEvents() {
-                var x = game.rnd.integerInRange(0, game.width);
-                var y = game.rnd.integerInRange(0, game.height);
-                //game.debug.text( "x,y = "+x+","+y, 100, 280 );
-               // PlaceEventIcon(game,'eighthNotes',x,y);
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        var event = JSON.parse(xhr.responseText);
+                       // var events = JSON.parse(xhr.responseText);
+                        //events.forEach(event => {
+                            PlaceEventIcon(game,event.name,event.x,event.y);
+                        //});
+                    }
+                };
+                var timeValue=getCurrentTime();
+                xhr.open('GET', homeBaseUrl + "/getEvents?t="+timeValue, true);
+                xhr.send(null);
+              
                 
             }
             
