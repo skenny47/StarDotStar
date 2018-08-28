@@ -19,7 +19,7 @@ events = [ ]
 
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
-
+events.append(StarDotStarEvent(0,0,'',datetime.datetime.now()))
 formatter = logging.Formatter("[%(asctime)s] %(message)s")
 handler = TimedRotatingFileHandler('../LOG/Logfile', when='midnight',                                    interval=1, backupCount=5)
 handler.setLevel(logging.INFO)

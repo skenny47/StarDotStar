@@ -81,11 +81,13 @@ function DrawGrid(game,parts){
 
 function PlaceEventIcon(game,iconName,x,y)
 {
-  var sprite = game.add.sprite(x,y, iconName);
-  sprite.inputEnabled = true;
-  game.physics.enable(sprite, Phaser.Physics.ARCADE);
-  sprite.body.velocity.x = -50;
-  sprite.lifespan = 15000;
+  if (iconName.length > 0){
+    var sprite = game.add.sprite(x,y, iconName);
+    sprite.inputEnabled = true;
+    game.physics.enable(sprite, Phaser.Physics.ARCADE);
+    sprite.body.velocity.x = -50;
+    sprite.lifespan = 15000;
+  }
 }
 
 function getCurrentTime(){
