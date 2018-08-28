@@ -66,6 +66,7 @@
                         var event = JSON.parse(xhr.responseText);
                        // var events = JSON.parse(xhr.responseText);
                         //events.forEach(event => {
+                            game.debug.text("name="+event.name+"["+event.x+","+event.y+"]", 100, 400 );
                             PlaceEventIcon(game,event.name,event.x,event.y);
                         //});
                     }
