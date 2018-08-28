@@ -32,8 +32,8 @@
                    // game.debug.text( "foobar", 100, 280 );
             game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, ReceiveGlobalEvents, this);
             game.stage.backgroundColor = "0800ff";
-           
-           game.input.onDown.add(IconPlaced, this);
+            game.stage.disableVisibilityChange = true;
+            game.input.onDown.add(IconPlaced, this);
          
             // Establish 'score' as the default
             var score = "score";

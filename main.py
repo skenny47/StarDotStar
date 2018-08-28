@@ -20,11 +20,14 @@ events = [ ]
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
 events.append(StarDotStarEvent(47,47,'',datetime.datetime.now()))
-formatter = logging.Formatter("[%(asctime)s] %(message)s")
-handler = TimedRotatingFileHandler('../LOG/Logfile', when='midnight',                                    interval=1, backupCount=5)
-handler.setLevel(logging.INFO)
-handler.setFormatter(formatter)
-app.logger.addHandler(handler)
+
+### Uncomment out this section below to add file logging
+#formatter = logging.Formatter("[%(asctime)s] %(message)s")
+#handler = TimedRotatingFileHandler('../LOG/Logfile', when='midnight',                                    interval=1, backupCount=5)
+#handler.setLevel(logging.INFO)
+#handler.setFormatter(formatter)
+#app.logger.addHandler(handler)
+############################################
 
 def serialize(obj):
     """JSON serializer for objects not serializable by default json code"""
