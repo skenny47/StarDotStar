@@ -38,7 +38,7 @@ def globals():
 
 @app.route("/getEvents", methods=['GET'])
 def getEvents():
-    t = request.args.get('y', default = '', type = string)
+    t = request.args.get('y')
     response = jsonify(events[events.count()-1])  # The latest event
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response

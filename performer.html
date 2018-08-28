@@ -30,7 +30,7 @@
         
         function create () {
                    // game.debug.text( "foobar", 100, 280 );
-            game.time.events.repeat(Phaser.Timer.SECOND/2, 1000000000, ReceiveGlobalEvents, this);
+            game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, ReceiveGlobalEvents, this);
             game.stage.backgroundColor = "0800ff";
            
            game.input.onDown.add(IconPlaced, this);
