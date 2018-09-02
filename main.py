@@ -20,7 +20,7 @@ events = [ ]
 
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
-events.append(StarDotStarEvent(47,47,0,'',datetime.datetime.now()))
+events.append(StarDotStarEvent(47,0.47,0,'',datetime.datetime.now()))
 
 ### Uncomment out this section below to add file logging
 #formatter = logging.Formatter("[%(asctime)s] %(message)s")
@@ -61,11 +61,11 @@ def getEvents():
 @app.route('/newEvent')
 def newEvent():
   x = request.args.get('x', default = 0, type = int) 
-  y = request.args.get('y', default = 0, type = int)
-  p = request.args.get('y', default = 0, type = int)
+  y = request.args.get('y', default = ' ', type = str)  # float : fraction of 1 (0.xxx)
+  p = request.args.get('p', default = 0, type = int)
   icon = request.args.get('icon', default = '*', type = str)
-  events.append(StarDotStarEvent(x,y,p,icon,datetime.datetime.now()))
-  app.logger.info('Appended Event : ' + str(x) + ',' + str(y) + 'Part : ' + str(p)+ ' Icon : ' + icon)
+  events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now()))
+  app.logger.info('Appended Event : ' + str(x) + ',' + y + ' Part : ' + str(p)+ ' Icon : ' + icon)
   return ('', 204)
   
 if __name__ == "__main__":
