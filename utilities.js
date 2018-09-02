@@ -70,11 +70,13 @@ function DrawGrid(game,parts){
   gfx.moveTo(game.width/5,game.height);
   gfx.lineTo(game.width/5,0);
   /* draw horizontal line for each part */
-  var step;
-  for (step = 1; step < parts; step++) 
-  {
-      gfx.moveTo(0,step * (game.height/parts));
-      gfx.lineTo(game.width,step * (game.height/parts));
+  if (parts>0){ // only draw if score (when score, pwrts > 0 )
+    var step;
+    for (step = 1; step < parts; step++) 
+    {
+        gfx.moveTo(0,step * (game.height/parts));
+        gfx.lineTo(game.width,step * (game.height/parts));
+    }
   }
                 
 }
@@ -94,4 +96,23 @@ function getCurrentTime(){
     var currentdate = new Date(); 
     var time = currentdate.getHours() + ":"  + currentdate.getMinutes() + ":" + currentdate.getSeconds();
     return time;
+}
+
+function convertEventYToAbsoluteY(y,p,numParts,height){
+   var partSize = height / numParts;
+   return ((p-1)*partSize) + (y*partSize);
+}
+
+function convertYToPercentageInPart(yLocation, numberOfParts, height){
+  var partSize = height / numberOfParts;
+  return Math.floor(frac(yLocation/partSize));
+}
+
+function determinePartNumberFromY(realY,numberOfParts, height){
+  var partSize = height / numberOfParts;
+  return Math.floor(realY/partSize) + 1;
+}
+
+function frac(f) {
+    return f % 1;
 }

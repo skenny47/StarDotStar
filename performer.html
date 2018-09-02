@@ -14,11 +14,14 @@
     /* global DrawGrid */
     /* global PlaceEventIcon */
     /* global getCurrentTime */
+    /* global determinePartNumberFromY */
+    /* global convertYToPercentageInPart */
+    /* global convertYToAbsoluteY */
     (function() { // Begin scoping function
     
     var homeBaseUrl = "http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747";
-    var X;
-    var Y;
+    var partNumber = 0;
+    var globals;
     window.onload = function() {
         var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
                 { preload: preload, create: create /*, update: update*/  });
@@ -33,30 +36,30 @@
             game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, ReceiveGlobalEvents, this);
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
+            
             game.input.onDown.add(IconPlaced, this);
-         
-            // Establish 'score' as the default
-            var score = "score";
+            
             var partIdentifier = getAllUrlParams().part;
-            if (typeof partNumber == 'undefined'){
+            if (typeof partIdentifier == 'undefined'){
                 partIdentifier = "score";
             }
-            
+            var score = "score";
             if (partIdentifier.valueOf() == score.valueOf())
             { // If this is the SCORE version of Perfoamer
+                partNumber = 0;
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
-                        var globals = JSON.parse(xhr.responseText);
-                        var numberOfParts = globals.parts;
-                        game.debug.text( "parts = "+numberOfParts, 100, 280 );
-                        DrawGrid(game,numberOfParts);
+                        globals = JSON.parse(xhr.responseText);
+                        game.debug.text( "parts = "+globals.parts, 100, 280 );
+                        DrawGrid(game,globals.parts);
                     }
                 };
                 xhr.open('GET', homeBaseUrl + "/globals", true);
                 xhr.send(null);
             }else{
-                DrawGrid(game,0);
+                partNumber = Number(partIdentifier);
+                DrawGrid(game,0);  // just one part
             }
             
             function ReceiveGlobalEvents() {
@@ -67,7 +70,13 @@
                        // var events = JSON.parse(xhr.responseText);
                         //events.forEach(event => {
                             game.debug.text("name="+event.icon+"["+event.x+","+event.y+"]", 100, 400 );
-                            PlaceEventIcon(game,event.icon,event.x,event.y);
+                            var y;
+                            if (partNumber==0){ //showing score
+                                y= convertYToAbsoluteY(event.y,event.part, globals.parts, game.height);
+                            }else{ // showing single part
+                                y = event.y * game.height;
+                            }
+                            PlaceEventIcon(game,event.icon,event.x,y);
                         //});
                     }
                 };
@@ -80,11 +89,10 @@
             }
             
         }
-        
-        
+    
         function IconPlaced(pointer) {
-            X = pointer.x;
-            Y = pointer.y;
+            var X = pointer.x;
+            var Y = pointer.y;
       
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
@@ -92,8 +100,10 @@
                     
                 } 
             };
+            var convertedY = convertYToPercentageInPart(Y,globals.parts,game.height);
+            var placedPart = determinePartNumberFromY(Y,globals.parts,game.height);
             var reportUrl = homeBaseUrl 
-                + "/newEvent?x="+ X + "&y=" + Y + "&icon=" + "eighthNotes";
+                + "/newEvent?x="+ X + "&y=" + convertedY + "&part=" + placedPart + "&icon=" + "eighthNotes";
             xhr.open('GET',reportUrl , true);
             xhr.send(null);
         }
