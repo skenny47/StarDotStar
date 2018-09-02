@@ -103,9 +103,9 @@ function convertEventYToAbsoluteY(y,p,numParts,height){
    return ((p-1)*partSize) + (y*partSize);
 }
 
-function convertYToPercentageInPart(yLocation, numberOfParts, height){
+function convertYToPercentageInPart(realY, numberOfParts, height){
   var partSize = height / numberOfParts;
-  return Math.floor(frac(yLocation/partSize));
+  return frac(realY/partSize);
 }
 
 function determinePartNumberFromY(realY,numberOfParts, height){
