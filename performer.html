@@ -34,8 +34,6 @@
             
             game.input.onDown.add(IconPlaced, this);
             
-            LoadGlobals();
-            
             var partIdentifier = getAllUrlParams().part;
             if (typeof partIdentifier == 'undefined'){
                 partIdentifier = "score";
@@ -44,8 +42,35 @@
             if (partIdentifier.valueOf() == score.valueOf())
             { // If this is the SCORE version of Perfoamer
                 partNumber = 0;
-                DrawGrid(game,globals.parts);
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        globals = JSON.parse(xhr.responseText);
+                        game.debug.text( "parts = "+globals.parts, 100, 280 );
+                        DrawGrid(game,globals.parts);
+                        for (let i = 0; i < globals.icons.length; i++) {
+                           game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
+                        }
+                         game.load.start();
+                    }
+                };
+                xhr.open('GET', homeBaseUrl + "/globals", true);
+                xhr.send(null);
             }else{
+                xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        globals = JSON.parse(xhr.responseText);
+                        game.debug.text( "parts = "+globals.parts, 100, 280 );
+                        DrawGrid(game,globals.parts);
+                        for (let i = 0; i < globals.icons.length; i++) {
+                           game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
+                        }
+                         game.load.start();
+                    }
+                };
+                xhr.open('GET', homeBaseUrl + "/globals", true);
+                xhr.send(null);
                 partNumber = Number(partIdentifier);
                 DrawGrid(game,0);  // just one part
             }
@@ -104,22 +129,6 @@
                 + "/newEvent?x="+ X + "&y=" + convertedY + "&part=" + placedPart + "&icon=" + "eighthNotes";
             xhr.open('GET',reportUrl , true);
             xhr.send(null);
-        }
-        
-        function LoadGlobals()
-        {
-             var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == XMLHttpRequest.DONE) {
-                        globals = JSON.parse(xhr.responseText);
-                        for (let i = 0; i < globals.icons.length; i++) {
-                           game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
-                        }
-                         game.load.start();
-                    }
-                };
-                xhr.open('GET', homeBaseUrl + "/globals", true);
-                xhr.send(null);
         }
             
     };
