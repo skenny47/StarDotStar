@@ -28,7 +28,7 @@
                 { preload: preload, create: create /*, update: update*/  });
         function preload () {
            
-            game.load.image('eighthNotes',  'Images/icons8-music-50.png');
+           // game.load.image('eighthNotes',  'Images/icons8-music-50.png');
             
         }
         
@@ -53,11 +53,27 @@
                         globals = JSON.parse(xhr.responseText);
                         game.debug.text( "parts = "+globals.parts, 100, 280 );
                         DrawGrid(game,globals.parts);
+                        for (let i = 0; i < globals.icons.length; i++) {
+                           game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
+                        }
                     }
                 };
                 xhr.open('GET', homeBaseUrl + "/globals", true);
                 xhr.send(null);
             }else{
+                xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == XMLHttpRequest.DONE) {
+                        globals = JSON.parse(xhr.responseText);
+                        game.debug.text( "parts = "+globals.parts, 100, 280 );
+                        DrawGrid(game,globals.parts);
+                        for (let i = 0; i < globals.icons.length; i++) {
+                           game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
+                        }
+                    }
+                };
+                xhr.open('GET', homeBaseUrl + "/globals", true);
+                xhr.send(null);
                 partNumber = Number(partIdentifier);
                 DrawGrid(game,0);  // just one part
             }
