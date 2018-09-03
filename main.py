@@ -51,7 +51,7 @@ def globals():
 def getEvents():
     #t = request.args.get('t') 
     e = events[-1]  # shortcut to last element
-    app.logger.info('Sent Event : ' + str(e.x) + ',' + str(e.y) + 'Part : ' + str(e.part) + ' Icon : ' + e.icon)
+    app.logger.info('Sent Event : ' + str(e.x) + ',' + str(e.y) + ' Part : ' + str(e.part) + ' Icon : ' + e.icon)
     #returnJson = json.dumps(e, default=serialize)
     response = jsonify(vars(e))
     #response = jsonify(returnJson)  # The latest event
@@ -62,7 +62,7 @@ def getEvents():
 def newEvent():
   x = request.args.get('x', default = 0, type = int) 
   y = request.args.get('y', default = ' ', type = str)  # float : fraction of 1 (0.xxx)
-  p = request.args.get('p', default = 0, type = int)
+  p = request.args.get('part', default = 0, type = int)
   icon = request.args.get('icon', default = '*', type = str)
   events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now()))
   app.logger.info('Appended Event : ' + str(x) + ',' + y + ' Part : ' + str(p)+ ' Icon : ' + icon)

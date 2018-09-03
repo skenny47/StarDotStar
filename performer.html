@@ -69,7 +69,8 @@
                         var event = JSON.parse(xhr.responseText);
                        // var events = JSON.parse(xhr.responseText);
                         //events.forEach(event => {
-                            game.debug.text("name="+event.icon+"["+event.x+","+event.y+"]", 100, 400 );
+                            game.debug.text(
+                                "name="+event.icon+"["+event.x+","+event.y+"] Part :" + event.part, 100, 400 );
                             var y;
                             if (partNumber==0){ //showing score
                                 y= convertYToAbsoluteY(event.y,event.part, globals.parts, game.height);
