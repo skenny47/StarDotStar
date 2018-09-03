@@ -71,8 +71,8 @@
                         //events.forEach(event => {
                             game.debug.text(
                                 "name="+event.icon+"["+event.x+","+event.y+"] Part :" + event.part, 100, 400 );
-                            var y;
-                            if (partNumber==0){ //showing score
+                            var y = 0;
+                            if (partNumber<1){ //showing score
                                 y = convertYToAbsoluteY(event.y,event.part, globals.parts, game.height);
                                 game.debug.text("converted y = "+ y, 100,600);
                             }else{ // showing single part
