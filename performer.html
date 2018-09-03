@@ -12,6 +12,7 @@
     /* global Phaser */
     /* global getAllUrlParams */
     /* global DrawGrid */
+    /* global DrawIconPalette */
     /* global PlaceEventIcon */
     /* global getCurrentTime */
     /* global determinePartNumberFromY */
@@ -48,6 +49,7 @@
                         globals = JSON.parse(xhr.responseText);
                         game.debug.text( "parts = "+globals.parts, 100, 280 );
                         DrawGrid(game,globals.parts);
+                        DrawIconPalette(game,globals);
                         for (let i = 0; i < globals.icons.length; i++) {
                            game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
                         }
@@ -130,6 +132,7 @@
             xhr.open('GET',reportUrl , true);
             xhr.send(null);
         }
+        
             
     };
     })();         // End scoping function

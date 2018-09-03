@@ -78,7 +78,30 @@ function DrawGrid(game,parts){
         gfx.lineTo(game.width,step * (game.height/parts));
     }
   }
-                
+}
+
+function DrawIconPalette(game,globals){
+  let n = globals.icons.length;
+  let rows = (n/2) +1;
+  let x1 = .85 * game.width;
+ 
+  var gfx = game.add.graphics(0,0);
+  gfx.lineStyle(10, 0x33FF00);
+  /* draw 'now' vertical lines */
+  gfx.moveTo(x1,0);
+  gfx.lineTo(x1,game.height);
+  let x2 = .95 * game.width;
+  gfx.moveTo(x2,0);
+  gfx.lineTo(x2,game.height);
+  // draw vertical lines for each row of palette
+  if (rows>0){ // only draw if score (when score, pwrts > 0 )
+    var step;
+    for (step = 1; step < rows; step++) 
+    {
+        gfx.moveTo(x1,step * (game.height/rows));
+        gfx.lineTo(game.width,step * (game.height/rows));
+    }
+  }
 }
 
 function PlaceEventIcon(game,iconName,x,y)
