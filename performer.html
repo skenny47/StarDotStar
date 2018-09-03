@@ -18,9 +18,10 @@
     /* global convertYToPercentageInPart */
     /* global convertEventYToAbsoluteY */
     (function() { // Begin scoping function
-    
+    var debug = false;
     var homeBaseUrl = "http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747";
     var partNumber = 0;
+    var LastEventIdProcessed = 0.0;
     var globals;
     window.onload = function() {
         var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
@@ -32,7 +33,7 @@
         }
         
         function create () {
-            game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, ReceiveGlobalEvents, this);
+            game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, GetGlobalEvent, this);
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
             
@@ -61,38 +62,41 @@
                 DrawGrid(game,0);  // just one part
             }
             
-            function ReceiveGlobalEvents() {
+            function GetGlobalEvent() {
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         var event = JSON.parse(xhr.responseText);
-                       // var events = JSON.parse(xhr.responseText);
-                        //events.forEach(event => {
-                            game.debug.text(
-                                "name="+event.icon+"["+event.x+","+event.y+"] Part :" + event.part, 100, 400 );
+                        if (event.id > LastEventIdProcessed){
+                            LastEventIdProcessed=event.id;
+                            if (debug==true){
+                                game.debug.text("name="+event.icon+"["+event.x+","+event.y+"] Part :" + event.part, 100, 400 );
+                            }
                             var y = 0;
                             if (partNumber<1){ //showing score
-                                game.debug.text( "SCORE", 100, 100 );
+                                if (debug == true){
+                                    game.debug.text( "SCORE", 100, 100 );
+                                }
                                 y = convertEventYToAbsoluteY(event.y,event.part, globals.parts, game.height);
-                               // game.debug.text("converted y = "+ y, 100,600);
+                                if (debug==true){
+                                    game.debug.text("converted y = "+ y, 100,600);
+                                }
                                PlaceEventIcon(game,event.icon,event.x,y);
                             }else{ // showing single part
                                 if (event.part==partNumber){
                                     y = event.y * game.height;
                                     PlaceEventIcon(game,event.icon,event.x,y);
                                 }
-                                game.debug.text( "PART "+ partNumber, 100, 100 );
+                                if (debug == true){
+                                    game.debug.text( "PART "+ partNumber, 100, 100 );
+                                }
                             }
-                           
-                        //});
+                        }
                     }
                 };
                 var timeValue=getCurrentTime();
-                //xhr.open('GET', homeBaseUrl + "/getEvents?t="+timeValue, true);
-                xhr.open('GET', homeBaseUrl + "/getEvents?t=foobar", true);
+                xhr.open('GET', homeBaseUrl + "/getEvents", true);
                 xhr.send(null);
-              
-                
             }   
             
         }

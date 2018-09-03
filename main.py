@@ -8,16 +8,18 @@ from flask import Flask
 server_globals = globals.server_globals
 
 class StarDotStarEvent():
-    def __init__(self,x,y,part,icon,time):
+    def __init__(self,x,y,part,icon,time,id):
         self.x = x
         self.y = y
         self.part = part
         self.icon = icon
         self.time = time
+        self.id = id
     
 
 events = [ ]
 
+globalEventId = 0.0
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
 events.append(StarDotStarEvent(47,0.47,0,'',datetime.datetime.now()))
@@ -64,7 +66,8 @@ def newEvent():
   y = request.args.get('y', default = ' ', type = str)  # float : fraction of 1 (0.xxx)
   p = request.args.get('part', default = 0, type = int)
   icon = request.args.get('icon', default = '*', type = str)
-  events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now()))
+  globalEventId = globalEventId + 1
+  events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now(),globalEventId))
   app.logger.info('Appended Event : ' + str(x) + ',' + y + ' Part : ' + str(p)+ ' Icon : ' + icon)
   return ('', 204)
   
