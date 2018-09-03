@@ -68,7 +68,7 @@ def newEvent():
     p = request.args.get('part', default = 0, type = int)
     icon = request.args.get('icon', default = '*', type = str)
     eventId = eventId + 1.0
-    events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now(),globalEventId))
+    events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now(),eventId))
     app.logger.info('Appended Event : ' + str(x) + ',' + y + ' Part : ' + str(p)+ ' Icon : ' + icon)
     return ('', 204)
   
