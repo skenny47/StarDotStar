@@ -34,10 +34,9 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
                     globals = JSON.parse(xhr.responseText);
-                    globals.Icons.forEach((icon, index) => {
-                        game.load.image(icon.name,'Images/'+icon.fileName);
-                    });
-
+                    for (let i = 0; i < globals.icons.length; i++) {
+                         game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
+                    }
                 }
             };
             xhr.open('GET', homeBaseUrl + "/globals", true);
@@ -60,16 +59,7 @@
             if (partIdentifier.valueOf() == score.valueOf())
             { // If this is the SCORE version of Perfoamer
                 partNumber = 0;
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == XMLHttpRequest.DONE) {
-                        globals = JSON.parse(xhr.responseText);
-                        game.debug.text( "parts = "+globals.parts, 100, 280 );
-                        DrawGrid(game,globals.parts);
-                    }
-                };
-                xhr.open('GET', homeBaseUrl + "/globals", true);
-                xhr.send(null);
+                DrawGrid(game,globals.parts);
             }else{
                 partNumber = Number(partIdentifier);
                 DrawGrid(game,0);  // just one part
