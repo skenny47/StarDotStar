@@ -22,7 +22,7 @@ events = [ ]
 globalEventId = 0.0
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
-events.append(StarDotStarEvent(47,0.47,0,'',datetime.datetime.now()))
+events.append(StarDotStarEvent(47,0.47,0,'',datetime.datetime.now(),0.0))
 
 ### Uncomment out this section below to add file logging
 #formatter = logging.Formatter("[%(asctime)s] %(message)s")
