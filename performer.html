@@ -26,12 +26,10 @@
     window.onload = function() {
         var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
                 { preload: preload, create: create /*, update: update*/  });
+                
         function preload () {
-        }
-        
-        function create () {
             //Load the Globals from Flask Server
-            var xhr = new XMLHttpRequest();
+             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
                     globals = JSON.parse(xhr.responseText);
@@ -39,6 +37,9 @@
             };
             xhr.open('GET', homeBaseUrl + "/globals", true);
             xhr.send(null);
+        }
+        
+        function create () {
             
             game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, GetGlobalEvent, this);
             game.stage.backgroundColor = "0800ff";
