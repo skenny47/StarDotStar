@@ -35,9 +35,6 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
                     globals = JSON.parse(xhr.responseText);
-                    for (let i = 0; i < globals.icons.length; i++) {
-                         game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
-                    }
                 }
             };
             xhr.open('GET', homeBaseUrl + "/globals", true);
@@ -46,6 +43,10 @@
             game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, GetGlobalEvent, this);
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
+            
+            for (let i = 0; i < globals.icons.length; i++) {
+                game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
+            }
             
             game.input.onDown.add(IconPlaced, this);
             
