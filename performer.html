@@ -16,7 +16,7 @@
     /* global getCurrentTime */
     /* global determinePartNumberFromY */
     /* global convertYToPercentageInPart */
-    /* global convertYToAbsoluteY */
+    /* global convertEventYToAbsoluteY */
     (function() { // Begin scoping function
     
     var homeBaseUrl = "http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747";
@@ -73,7 +73,7 @@
                                 "name="+event.icon+"["+event.x+","+event.y+"] Part :" + event.part, 100, 400 );
                             var y = 0;
                             if (partNumber<1){ //showing score
-                                y = convertYToAbsoluteY(event.y,event.part, globals.parts, game.height);
+                                y = convertEventYToAbsoluteY(event.y,event.part, globals.parts, game.height);
                                 game.debug.text("converted y = "+ y, 100,600);
                             }else{ // showing single part
                                 y = event.y * game.height;
