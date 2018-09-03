@@ -25,21 +25,12 @@
     var globals;
     window.onload = function() {
         var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
-                { preload: preload, create: create /*, update: update*/  });
-                
-        function preload () {
-            //Load the Globals from Flask Server
-             var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == XMLHttpRequest.DONE) {
-                    globals = JSON.parse(xhr.responseText);
-                }
-            };
-            xhr.open('GET', homeBaseUrl + "/globals", true);
-            xhr.send(null);
-        }
+                { create: create /*, update: update*/  });
+
         
         function create () {
+            
+            loadGlobals();
             
             game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, GetGlobalEvent, this);
             game.stage.backgroundColor = "0800ff";
@@ -102,6 +93,19 @@
                 xhr.send(null);
             }   
             
+        }
+        
+        function loadGlobals()
+        {
+             //Load the Globals from Flask Server
+             var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    globals = JSON.parse(xhr.responseText);
+                }
+            };
+            xhr.open('GET', homeBaseUrl + "/globals", true);
+            xhr.send(null);
         }
     
         function IconPlaced(pointer) {
