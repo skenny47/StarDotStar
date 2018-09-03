@@ -36,9 +36,12 @@
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
             
-            for (let i = 0; i < globals.icons.length; i++) {
-                game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
-            }
+            
+             game.load.image('eighthNotes','Images/icons8-music-50.png')
+             
+            //for (let i = 0; i < globals.icons.length; i++) {
+            //    game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
+            //    }
             
             game.input.onDown.add(IconPlaced, this);
             
