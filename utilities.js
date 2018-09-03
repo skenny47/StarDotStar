@@ -82,7 +82,7 @@ function DrawGrid(game,parts){
 
 function DrawIconPalette(game,globals){
   let n = globals.icons.length;
-  let rows = (n/2) +1;
+  let rows = (n/2);
   let x1 = .80 * game.width;
  
   var gfx = game.add.graphics(0,0);
@@ -99,6 +99,14 @@ function DrawIconPalette(game,globals){
     for (step = 1; step < rows; step++) 
     {
         gfx.moveTo(x1,step * (game.height/rows));
+        let sprite = game.add.sprite(x1,step * (game.height/rows), globals.icons[(step-1)*2]);
+        sprite.inputEnabled = true;
+        game.physics.enable(sprite, Phaser.Physics.ARCADE);
+        
+        let sprite2 = game.add.sprite(x2,step * (game.height/rows), 
+            globals.icons[((step-1)*2)+1]);
+        sprite2.inputEnabled = true;
+        game.physics.enable(sprite2, Phaser.Physics.ARCADE);
         gfx.lineTo(game.width,step * (game.height/rows));
     }
   }
