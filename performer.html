@@ -18,7 +18,7 @@
     /* global convertYToPercentageInPart */
     /* global convertEventYToAbsoluteY */
     (function() { // Begin scoping function
-    var debug = false;
+    var debug = true;
     var homeBaseUrl = "http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747";
     var partNumber = 0;
     var LastEventIdProcessed = 0.0;
@@ -27,9 +27,10 @@
         var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
                 { preload: preload, create: create /*, update: update*/  });
         function preload () {
-           
-            //game.load.image('eighthNotes',  'Images/icons8-music-50.png');
-            
+        }
+        
+        function create () {
+            //Load the Globals from Flask Server
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -42,9 +43,6 @@
             xhr.open('GET', homeBaseUrl + "/globals", true);
             xhr.send(null);
             
-        }
-        
-        function create () {
             game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, GetGlobalEvent, this);
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
