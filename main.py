@@ -19,7 +19,7 @@ class StarDotStarEvent():
 
 events = [ ]
 
-globalEventId = 0.0
+eventId = 0.0
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
 events.append(StarDotStarEvent(47,0.47,0,'',datetime.datetime.now(),0.0))
@@ -62,14 +62,15 @@ def getEvents():
     
 @app.route('/newEvent')
 def newEvent():
-  x = request.args.get('x', default = 0, type = int) 
-  y = request.args.get('y', default = ' ', type = str)  # float : fraction of 1 (0.xxx)
-  p = request.args.get('part', default = 0, type = int)
-  icon = request.args.get('icon', default = '*', type = str)
-  globalEventId = globalEventId + 1
-  events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now(),globalEventId))
-  app.logger.info('Appended Event : ' + str(x) + ',' + y + ' Part : ' + str(p)+ ' Icon : ' + icon)
-  return ('', 204)
+    global eventId
+    x = request.args.get('x', default = 0, type = int) 
+    y = request.args.get('y', default = ' ', type = str)  # float : fraction of 1 (0.xxx)
+    p = request.args.get('part', default = 0, type = int)
+    icon = request.args.get('icon', default = '*', type = str)
+    eventId = eventId + 1.0
+    events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now(),globalEventId))
+    app.logger.info('Appended Event : ' + str(x) + ',' + y + ' Part : ' + str(p)+ ' Icon : ' + icon)
+    return ('', 204)
   
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug = True, port = 4747)
