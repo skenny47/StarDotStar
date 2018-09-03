@@ -45,7 +45,6 @@
             var score = "score";
             if (partIdentifier.valueOf() == score.valueOf())
             { // If this is the SCORE version of Perfoamer
-                game.debug.text( "SCORE", 100, 100 );
                 partNumber = 0;
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
@@ -53,14 +52,15 @@
                         globals = JSON.parse(xhr.responseText);
                         game.debug.text( "parts = "+globals.parts, 100, 280 );
                         DrawGrid(game,globals.parts);
+                        game.debug.text( "SCORE", 100, 100 );
                     }
                 };
                 xhr.open('GET', homeBaseUrl + "/globals", true);
                 xhr.send(null);
             }else{
                 partNumber = Number(partIdentifier);
-                game.debug.text( "PART "+ partNumber, 100, 100 );
                 DrawGrid(game,0);  // just one part
+                game.debug.text( "PART "+ partNumber, 100, 100 );
             }
             
             function ReceiveGlobalEvents() {
