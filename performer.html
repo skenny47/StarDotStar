@@ -25,12 +25,7 @@
     var globals;
     window.onload = function() {
         var game = new Phaser.Game(800, 600, Phaser.AUTO, '', 
-                { preload: preload, create: create /*, update: update*/  });
-        function preload () {
-           
-           // game.load.image('eighthNotes',  'Images/icons8-music-50.png');
-            
-        }
+                { create: create });
         
         function create () {
             game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, GetGlobalEvent, this);
