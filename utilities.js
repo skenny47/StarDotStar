@@ -106,16 +106,16 @@ function DrawIconPalette(game,globals){
         sprite.inputEnabled = true;
         sprite.input.enableDrag(false);
         game.physics.enable(sprite, Phaser.Physics.ARCADE);
-        sprite.events.onDragStart.add(onDragStart, this);
-        sprite.events.onDragStop.add(onDragStop, this);
+        sprite.events.onDragStart.add(onDragStart);
+        sprite.events.onDragStop.add(onDragStop);
         
         let icon2 = globals.icons[((step-1)*2)+1];
         let sprite2 = game.add.sprite(x2,(step * (game.height/rows)), icon2.name);
         sprite2.y -= sprite2.height;
         sprite2.inputEnabled = true;
         sprite2.input.enableDrag(false);
-        sprite2.events.onDragStart.add(onDragStart, this);
-        sprite2.events.onDragStop.add(onDragStop, this);
+        sprite2.events.onDragStart.add(onDragStart);
+        sprite2.events.onDragStop.add(onDragStop);
         game.physics.enable(sprite2, Phaser.Physics.ARCADE);
         if (step<rows){ // draw one less line
           gfx.lineTo(game.width,step * (game.height/rows));
