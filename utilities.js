@@ -114,6 +114,8 @@ function DrawIconPalette(game,globals){
         sprite2.y -= sprite2.height;
         sprite2.inputEnabled = true;
         sprite2.input.enableDrag(false);
+        sprite2.events.onDragStart.add(onDragStart, this);
+        sprite2.events.onDragStop.add(onDragStop, this);
         game.physics.enable(sprite2, Phaser.Physics.ARCADE);
         if (step<rows){ // draw one less line
           gfx.lineTo(game.width,step * (game.height/rows));
