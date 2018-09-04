@@ -29,6 +29,9 @@
                 { create: create });
         
         function create () {
+            
+            game.load.onLoadComplete.add(loadComplete, this);
+    
             game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, GetGlobalEvent, this);
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
@@ -49,7 +52,6 @@
                         globals = JSON.parse(xhr.responseText);
                         game.debug.text( "parts = "+globals.parts, 100, 280 );
                         DrawGrid(game,globals.parts);
-                        DrawIconPalette(game,globals);
                         for (let i = 0; i < globals.icons.length; i++) {
                            game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
                         }
@@ -75,6 +77,12 @@
                 xhr.send(null);
                 partNumber = Number(partIdentifier);
                 DrawGrid(game,0);  // just one part
+            }
+            
+            function loadComplete() {
+                if (partNumber<1){
+                    DrawIconPalette(game,globals);
+                }
             }
             
             function GetGlobalEvent() {
