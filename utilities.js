@@ -100,12 +100,12 @@ function DrawIconPalette(game,globals){
     {
         gfx.moveTo(x1,step * (game.height/rows));
         let icon1 = globals.icons[(step-1)*2];
-        let sprite = game.add.sprite(x1,(step * (game.height/rows)-icon1.height), icon1.name);
+        let sprite = game.add.sprite(x1,(step * (game.height/rows)) -icon1.height, icon1.name);
         sprite.inputEnabled = true;
         game.physics.enable(sprite, Phaser.Physics.ARCADE);
         
         let icon2 = globals.icons[((step-1)*2)+1];
-        let sprite2 = game.add.sprite(x2,(step * (game.height/rows)-icon2.height), icon2.name);
+        let sprite2 = game.add.sprite(x2,(step * (game.height/rows))-icon2.height, icon2.name);
         sprite2.inputEnabled = true;
         game.physics.enable(sprite2, Phaser.Physics.ARCADE);
         gfx.lineTo(game.width,step * (game.height/rows));
