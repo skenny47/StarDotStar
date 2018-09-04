@@ -36,7 +36,7 @@
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
             
-            game.input.onDown.add(IconPlaced, this);
+           // game.input.onDown.add(IconPlaced, this);
             
             var partIdentifier = getAllUrlParams().part;
             if (typeof partIdentifier == 'undefined'){
@@ -80,11 +80,21 @@
             }
             
             function loadComplete() {
-                if (partNumber<1){
+                if (partNumber<1){ // when score only
                     DrawIconPalette(game,globals);
                 }
             }
             
+            function onDragStart(sprite, pointer) {
+                  if (partNumber<1){  // when score only
+                    DrawIconPalette(game,globals);
+                }
+            }
+            
+            function onDragStop(sprite, pointer) {
+                IconPlaced(pointer);
+            }
+
             function GetGlobalEvent() {
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {

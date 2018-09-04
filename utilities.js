@@ -1,6 +1,7 @@
 
 /*global Phaser*/
-
+/*global onDragStart*/
+/*global onDragStop*/
 function getAllUrlParams(url) {
 
   // get query string from url (optional) or window
@@ -105,6 +106,8 @@ function DrawIconPalette(game,globals){
         sprite.inputEnabled = true;
         sprite.input.enableDrag(false);
         game.physics.enable(sprite, Phaser.Physics.ARCADE);
+        sprite.events.onDragStart.add(onDragStart, this);
+        sprite.events.onDragStop.add(onDragStop, this);
         
         let icon2 = globals.icons[((step-1)*2)+1];
         let sprite2 = game.add.sprite(x2,(step * (game.height/rows)), icon2.name);
