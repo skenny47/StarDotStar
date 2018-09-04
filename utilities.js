@@ -83,7 +83,9 @@ function DrawGrid(game,parts){
 function PlaceEventIcon(game,iconName,x,y)
 {
   if (iconName.length > 0){
-    var sprite = game.add.sprite(x,y, iconName);
+    let sprite = game.add.sprite(x,y, iconName);
+    sprite.x -= sprite.width;
+    sprite.y += sprite.height;
     sprite.inputEnabled = true;
     game.physics.enable(sprite, Phaser.Physics.ARCADE);
     sprite.body.velocity.x = -50;

@@ -97,7 +97,7 @@
                             if (debug==true){
                                 game.debug.text("name="+event.icon+"["+event.x+","+event.y+"] Part :" + event.part, 100, 400 );
                             }
-                            var y = 0;
+                            let y = 0;
                             if (partNumber<1){ //showing score
                                 if (debug == true){
                                     game.debug.text( "SCORE", 100, 100 );
@@ -127,18 +127,18 @@
         }
     
         function IconPlaced(pointer, spriteName) {
-            var X = pointer.x;
-            var Y = pointer.y;
+            let x = pointer.x;
+            let y = pointer.y;
       
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
                 } 
             };
-            var convertedY = convertYToPercentageInPart(Y,globals.parts,game.height);
-            var placedPart = determinePartNumberFromY(Y,globals.parts,game.height);
+            var convertedY = convertYToPercentageInPart(y,globals.parts,game.height);
+            var placedPart = determinePartNumberFromY(y,globals.parts,game.height);
             var reportUrl = homeBaseUrl 
-                + "/newEvent?x="+ X + "&y=" + convertedY + "&part=" + placedPart + "&icon=" + spriteName;
+                + "/newEvent?x="+ x + "&y=" + convertedY + "&part=" + placedPart + "&icon=" + spriteName;
             xhr.open('GET',reportUrl , true);
             xhr.send(null);
         }
