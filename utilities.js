@@ -1,7 +1,5 @@
 
 /*global Phaser*/
-/*global onDragStart*/
-/*global onDragStop*/
 function getAllUrlParams(url) {
 
   // get query string from url (optional) or window
@@ -81,48 +79,6 @@ function DrawGrid(game,parts){
   }
 }
 
-function DrawIconPalette(game,globals){
-  let n = globals.icons.length;
-  let rows = (n/2);
-  let x1 = .80 * game.width;
- 
-  var gfx = game.add.graphics(0,0);
-  gfx.lineStyle(10, 0x33FF00);
-  /* draw 'now' vertical lines */
-  gfx.moveTo(x1,0);
-  gfx.lineTo(x1,game.height);
-  let x2 = .90 * game.width;
-  gfx.moveTo(x2,0);
-  gfx.lineTo(x2,game.height);
-  // draw vertical lines for each row of palette
-  if (rows>0){ // only draw if score (when score, pwrts > 0 )
-    var step;
-    for (step = 1; step <=rows; step++) 
-    {
-        gfx.moveTo(x1,step * (game.height/rows));
-        let icon1 = globals.icons[(step-1)*2];
-        let sprite = game.add.sprite(x1,(step * (game.height/rows)), icon1.name);
-        sprite.y -= sprite.height;
-        sprite.inputEnabled = true;
-        sprite.input.enableDrag(false);
-        game.physics.enable(sprite, Phaser.Physics.ARCADE);
-        sprite.events.onDragStart.add(onDragStart);
-        sprite.events.onDragStop.add(onDragStop);
-        
-        let icon2 = globals.icons[((step-1)*2)+1];
-        let sprite2 = game.add.sprite(x2,(step * (game.height/rows)), icon2.name);
-        sprite2.y -= sprite2.height;
-        sprite2.inputEnabled = true;
-        sprite2.input.enableDrag(false);
-        sprite2.events.onDragStart.add(onDragStart);
-        sprite2.events.onDragStop.add(onDragStop);
-        game.physics.enable(sprite2, Phaser.Physics.ARCADE);
-        if (step<rows){ // draw one less line
-          gfx.lineTo(game.width,step * (game.height/rows));
-        }
-    }
-  }
-}
 
 function PlaceEventIcon(game,iconName,x,y)
 {
