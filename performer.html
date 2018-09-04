@@ -46,7 +46,7 @@
             }
             var score = "score";
             if (partIdentifier.valueOf() == score.valueOf())
-            { // If this is the SCORE version of Perfoamer
+            { // If this is the SCORE version of Performer
                 partNumber = 0;
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
@@ -81,8 +81,11 @@
                 DrawGrid(game,0);  // just one part
             }
             
-            function loadComplete() {
-                if (partNumber<1){ // when score only
+            function loadComplete() { 
+                let url = document.location.href;
+                let composer = "composer";
+                if (url.indexOf(composer) !== -1)
+                {// only draw the palette if this is a 'composer'
                     DrawIconPalette(game,globals);
                 }
             }

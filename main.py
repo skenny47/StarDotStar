@@ -43,6 +43,10 @@ def serialize(obj):
 def index():
     return send_from_directory('.','performer.html')
     
+@app.route("/composer", methods=['GET'])
+def index2():
+    return send_from_directory('.','performer.html')
+    
 @app.route("/globals", methods=['GET'])
 def globals():
     response = jsonify(server_globals)
