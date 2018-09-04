@@ -126,7 +126,7 @@
             
         }
     
-        function IconPlaced(pointer, sprite) {
+        function IconPlaced(pointer, spriteName) {
             var X = pointer.x;
             var Y = pointer.y;
       
@@ -138,15 +138,15 @@
             var convertedY = convertYToPercentageInPart(Y,globals.parts,game.height);
             var placedPart = determinePartNumberFromY(Y,globals.parts,game.height);
             var reportUrl = homeBaseUrl 
-                + "/newEvent?x="+ X + "&y=" + convertedY + "&part=" + placedPart + "&icon=" + sprite.key;
+                + "/newEvent?x="+ X + "&y=" + convertedY + "&part=" + placedPart + "&icon=" + spriteName;
             xhr.open('GET',reportUrl , true);
             xhr.send(null);
         }
             
         function onDragStop(sprite, pointer) {
             if (partNumber<1){  // when score only
-                IconPlaced(pointer,sprite);
-                sprite.kill;
+                IconPlaced(pointer,sprite.key);
+                sprite.destroy();
                 DrawIconPalette(game,globals);
             }
         }
