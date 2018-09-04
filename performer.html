@@ -20,6 +20,7 @@
     /* global determinePartNumberFromY */
     /* global convertYToPercentageInPart */
     /* global convertEventYToAbsoluteY */
+    /* global isComposer */
     (function() { // Begin scoping function
     var debug = false;
     var homeBaseUrl = "http://ec2-52-36-206-120.us-west-2.compute.amazonaws.com:4747";
@@ -82,9 +83,7 @@
             }
             
             function loadComplete() { 
-                let url = document.location.href;
-                let composer = "composer";
-                if (url.indexOf(composer) !== -1)
+                if (isComposer())
                 {// only draw the palette if this is a 'composer'
                     DrawIconPalette(game,globals);
                 }
@@ -122,7 +121,6 @@
                         }
                     }
                 };
-                var timeValue=getCurrentTime();
                 xhr.open('GET', homeBaseUrl + "/getEvents", true);
                 xhr.send(null);
             }   
@@ -194,8 +192,8 @@
                   gfx.lineTo(game.width,step * (game.height/rows));
                 }
             }
-  }
-}
+        }
+    }
             
     };
     })();         // End scoping function
