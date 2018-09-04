@@ -62,24 +62,23 @@ function getAllUrlParams(url) {
   return obj;
 }
 
-function DrawGrid(game,parts){
-  let composer = isComposer();
+function DrawGrid(game,numParts){
   let gfx = game.add.graphics(0,0);
   gfx.lineStyle(10, 0x33FF00);
   /* draw 'now' vertical line */
   gfx.moveTo(game.width/5,game.height);
   gfx.lineTo(game.width/5,0);
   /* draw horizontal line for each part */
-  if (parts>0){ // only draw if score (when score, parts > 0 )
+  if (numParts>0){ // only draw if score (when score, parts > 0 )
     let step = 0;
-    for (step = 1; step < parts; step++) 
+    for (step = 1; step < numParts; step++) 
     {
-        gfx.moveTo(0,step * (game.height/parts));
-        if (composer){
+        gfx.moveTo(0,step * (game.height/numParts));
+        if (isComposer()){
           // leave room for icon palette when 'composer'
-          gfx.lineTo(.80*game.width,step * (game.height/parts));
+          gfx.lineTo(.80*game.width,step * (game.height/numParts));
         }else{
-          gfx.lineTo(game.width,step * (game.height/parts));
+          gfx.lineTo(game.width,step * (game.height/numParts));
         }
     }
   }

@@ -39,22 +39,19 @@
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
             
-           // game.input.onDown.add(IconPlaced, this);
-            
+            var partNumber = 0;
             var partIdentifier = getAllUrlParams().part;
-            if (typeof partIdentifier == 'undefined'){
-                partIdentifier = "score";
+            if (typeof partIdentifier != 'undefined'){
+                partNumber=Number(partIdentifier);
             }
-            var score = "score";
-            if (partIdentifier.valueOf() == score.valueOf())
-            { // If this is the SCORE version of Performer
-                partNumber = 0;
+            if (partNumber==0)  // score
+            { 
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         globals = JSON.parse(xhr.responseText);
                         game.debug.text( "parts = "+globals.parts, 100, 280 );
-                        DrawGrid(game,globals.parts);
+                        DrawGrid(game,globals.parts); // draw with # of parts in globals.parts
                         for (let i = 0; i < globals.icons.length; i++) {
                            game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
                         }
@@ -78,8 +75,7 @@
                 };
                 xhr.open('GET', homeBaseUrl + "/globals", true);
                 xhr.send(null);
-                partNumber = Number(partIdentifier);
-                DrawGrid(game,0);  // just one part
+                DrawGrid(game,0);  // just one part because partNumber == 0
             }
             
             function loadComplete() { 
@@ -157,9 +153,9 @@
           let rows = (n/2);
           let x1 = .80 * game.width;
          
-          var gfx = game.add.graphics(0,0);
+          let gfx = game.add.graphics(0,0);
           gfx.lineStyle(10, 0x33FF00);
-          /* draw 'now' vertical lines */
+          /* draw the vertical lines for palette area*/
           gfx.moveTo(x1,0);
           gfx.lineTo(x1,game.height);
           let x2 = .90 * game.width;
