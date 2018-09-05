@@ -1,4 +1,4 @@
-from flask import Flask, request, response, render_template, send_from_directory, json, jsonify
+from flask import Flask, request, render_template, send_from_directory, json, jsonify
 import datetime, httplib
 import globals
 import logging
