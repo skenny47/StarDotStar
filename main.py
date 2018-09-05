@@ -45,17 +45,17 @@ def serialize(obj):
 
 @app.route("/performer", methods=['GET'])
 def performer():
-    for file in glob('/home/ubuntu/StarDotStar/*TEMP'):
+    for file in glob('/home/ubuntu/StarDotStar/TEMP*.html'):
         os.remove(file)
-    unique_filename = str(uuid.uuid4().hex+'TEMP')
+    unique_filename = str('TEMP'+uuid.uuid4().hex+'.html')
     copyfile('/home/ubuntu/StarDotStar/performer.html','/home/ubuntu/StarDotStar/'+unique_filename)
     return send_from_directory('.',unique_filename)
     
 @app.route("/composer", methods=['GET'])
 def composer():
-    for file in glob('/home/ubuntu/StarDotStar/*TEMP'):
+    for file in glob('/home/ubuntu/StarDotStar/TEMP*.html'):
         os.remove(file)
-    unique_filename = str(uuid.uuid4().hex+'TEMP')
+    unique_filename = str('TEMP'+uuid.uuid4().hex+'.html')
     copyfile('/home/ubuntu/StarDotStar/performer.html','/home/ubuntu/StarDotStar/'+unique_filename)
     return send_from_directory('.',unique_filename)
     
