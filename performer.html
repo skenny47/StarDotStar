@@ -50,7 +50,6 @@
                            game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
                         }
                          game.load.start();
-                         game.time.events.repeat(globals.lambda, 1000000000, GetGlobalEvent, this);
                     }
                 };
                 xhr.open('GET', homeBaseUrl + "/globals", true);
@@ -66,7 +65,6 @@
                            game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
                         }
                          game.load.start();
-                         game.time.events.repeat(globals.lambda, 1000000000, GetGlobalEvent, this);
                     }
                 };
                 xhr.open('GET', homeBaseUrl + "/globals", true);
@@ -78,6 +76,8 @@
                 {// only draw the palette if this is a 'composer'
                     DrawIconPalette(game,globals);
                 }
+                
+                game.time.events.repeat(Number(globals.lambda), 1000000000, GetGlobalEvent, this);
             }
 
             function GetGlobalEvent() {
