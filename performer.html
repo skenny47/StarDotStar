@@ -50,7 +50,9 @@
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         globals = JSON.parse(xhr.responseText);
-                        game.debug.text( "parts = "+globals.parts, 100, 280 );
+                        if (debug==true){
+                            game.debug.text( "global number of parts = "+globals.parts, 100, 280 );
+                        }
                         DrawGrid(game,globals.parts); // draw with # of parts in globals.parts
                         for (let i = 0; i < globals.icons.length; i++) {
                            game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);

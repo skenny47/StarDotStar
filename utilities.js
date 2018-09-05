@@ -97,6 +97,7 @@ function isComposer(){
 function PlaceEventIcon(game,iconName,x,y)
 {
   if (iconName.length > 0){
+     game.debug.text( "dropped at: ["+x+","+y+"]", 300, 300 );
     let sprite = game.add.sprite(x,y, iconName);
     sprite.x -= sprite.width/2;
     sprite.y -= sprite.height/2;
