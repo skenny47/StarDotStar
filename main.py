@@ -1,8 +1,9 @@
-from flask import Flask, request, uuid, render_template, send_from_directory, json, jsonify
+from flask import Flask, request, render_template, send_from_directory, json, jsonify
 from glob import glob
 from shutil import copyfile
 import datetime, httplib
 import os
+import uuid
 import globals
 import logging
 from logging.handlers import TimedRotatingFileHandler
