@@ -49,7 +49,7 @@ def performer():
         os.remove(file)
     unique_filename = str(uuid.uuid4().hex+'TEMP')
     copyfile('/home/ubuntu/StarDotStar/performer.html','/home/ubuntu/StarDotStar/'+unique_filename)
-    return send_from_directory('.','/home/ubuntu/StarDotStar/'+unique_filename)
+    return send_from_directory('.',unique_filename)
     
 @app.route("/composer", methods=['GET'])
 def composer():
@@ -57,7 +57,7 @@ def composer():
         os.remove(file)
     unique_filename = str(uuid.uuid4().hex+'TEMP')
     copyfile('/home/ubuntu/StarDotStar/performer.html','/home/ubuntu/StarDotStar/'+unique_filename)
-    return send_from_directory('.','/home/ubuntu/StarDotStar/'+unique_filename)
+    return send_from_directory('.',unique_filename)
     
 @app.route("/globals", methods=['GET'])
 def globals():
