@@ -1,4 +1,6 @@
-from flask import Flask, request, render_template, send_from_directory, json, jsonify
+from flask import Flask, os, request, uuid, render_template, send_from_directory, json, jsonify
+from glob import glob
+from shutil import copyfile
 import datetime, httplib
 import globals
 import logging
@@ -41,11 +43,19 @@ def serialize(obj):
 
 @app.route("/performer", methods=['GET'])
 def performer():
-    return send_from_directory('.','performer.html')
+    for file in glob('/home/ubuntu/StarDotStar/*TEMP'):
+        os.remove(file)
+    unique_filename = str(uuid.uuid4().hex+'TEMP')
+    copyfile('/home/ubuntu/StarDotStar/performer.html','/home/ubuntu/StarDotStar/'+unique_filename)
+    return send_from_directory('.','/home/ubuntu/StarDotStar/'+unique_filename)
     
 @app.route("/composer", methods=['GET'])
 def composer():
-    return send_from_directory('.','performer.html')
+    for file in glob('/home/ubuntu/StarDotStar/*TEMP'):
+        os.remove(file)
+    unique_filename = str(uuid.uuid4().hex+'TEMP')
+    copyfile('/home/ubuntu/StarDotStar/performer.html','/home/ubuntu/StarDotStar/'+unique_filename)
+    return send_from_directory('.','/home/ubuntu/StarDotStar/'+unique_filename)
     
 @app.route("/globals", methods=['GET'])
 def globals():
