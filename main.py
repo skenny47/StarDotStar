@@ -68,7 +68,6 @@ def globals():
 @app.route("/getEvents", methods=['GET'])
 def getEvents():
     global X
-    #t = request.args.get('t') 
     e = events[-1]  # shortcut to last element
     e.x = X
     app.logger.info('global X = '+str(X))
@@ -82,6 +81,7 @@ def newEvent():
     global eventId
     global X
     x = request.args.get('x', default = 0, type = int) 
+    app.logger.info('arg x = '+str(x))
     y = request.args.get('y', default = ' ', type = str)  # float : fraction of 1 (0.xxx)
     p = request.args.get('part', default = 0, type = int)
     icon = request.args.get('icon', default = '*', type = str)
