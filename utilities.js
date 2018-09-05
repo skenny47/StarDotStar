@@ -85,9 +85,9 @@ function DrawGrid(game,numParts){
 }
 
 function isComposer(){
-    let path = window.location;
+    let url = document.location.href;
     let composer = "composer";
-    if (path.indexOf(composer) !== -1){
+    if (url.indexOf(composer) !== -1){
       return true;
     }else{
       return false;
