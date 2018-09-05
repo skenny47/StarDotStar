@@ -39,6 +39,11 @@
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
             
+            if(isComposer()){
+                game.debug.text( "Composer = true", 300, 300 );
+            }else{
+                game.debug.text( "Composer = false", 300, 300 );
+            }
             var partNumber = 0;
             var partIdentifier = getAllUrlParams().part;
             if (typeof partIdentifier != 'undefined'){
