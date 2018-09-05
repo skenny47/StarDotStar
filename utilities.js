@@ -85,7 +85,7 @@ function DrawGrid(game,numParts){
 }
 
 function isComposer(){
-    let path = window.location.pathname;
+    let path = window.location;
     let composer = "composer";
     if (path.indexOf(composer) !== -1){
       return true;
