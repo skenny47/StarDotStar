@@ -23,7 +23,6 @@
             
             game.load.onLoadComplete.add(loadComplete, this);
     
-            game.time.events.repeat(Phaser.Timer.SECOND, 1000000000, GetGlobalEvent, this);
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
             
@@ -51,6 +50,7 @@
                            game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
                         }
                          game.load.start();
+                         game.time.events.repeat(globals.lambda, 1000000000, GetGlobalEvent, this);
                     }
                 };
                 xhr.open('GET', homeBaseUrl + "/globals", true);
@@ -66,6 +66,7 @@
                            game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
                         }
                          game.load.start();
+                         game.time.events.repeat(globals.lambda, 1000000000, GetGlobalEvent, this);
                     }
                 };
                 xhr.open('GET', homeBaseUrl + "/globals", true);
