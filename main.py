@@ -22,7 +22,7 @@ class StarDotStarEvent():
     
 
 events = [ ]
-
+X = 47
 eventId = 0.0
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
@@ -69,6 +69,7 @@ def globals():
 def getEvents():
     #t = request.args.get('t') 
     e = events[-1]  # shortcut to last element
+    e.x = X
     app.logger.info('Sent Event : ' + str(e.x) + ',' + str(e.y) + ' Part : ' + str(e.part) + ' Icon : ' + e.icon)
     response = jsonify(vars(e))
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -77,11 +78,13 @@ def getEvents():
 @app.route('/newEvent')
 def newEvent():
     global eventId
+    global X
     x = request.args.get('x', default = 0, type = int) 
     y = request.args.get('y', default = ' ', type = str)  # float : fraction of 1 (0.xxx)
     p = request.args.get('part', default = 0, type = int)
     icon = request.args.get('icon', default = '*', type = str)
     eventId = eventId + 1.0
+    X = x
     events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now(),eventId))
     app.logger.info('Appended Event : ' + str(x) + ',' + y + ' Part : ' + str(p)+ ' Icon : ' + icon)
     return ('', 204)
