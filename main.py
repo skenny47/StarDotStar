@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory, json, jsonify
+from flask import Flask, request, response, render_template, send_from_directory, json, jsonify
 import datetime, httplib
 import globals
 import logging
@@ -40,11 +40,15 @@ def serialize(obj):
     return obj.__dict__
 
 @app.route("/performer", methods=['GET'])
-def index():
+def performer():
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
     return send_from_directory('.','performer.html')
     
 @app.route("/composer", methods=['GET'])
-def index2():
+def composer():
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
     return send_from_directory('.','performer.html')
     
 @app.route("/globals", methods=['GET'])
