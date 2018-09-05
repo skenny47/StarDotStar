@@ -1,6 +1,6 @@
 server_globals = {
     "parts" : "4",
-    "Lambda" : "1000",
+    "lambda" : "1000",
     "icons" : 
         [ 
             {"fileName" : "icons8-music-50.png", "name" : "eighthNotes"},
