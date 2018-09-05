@@ -67,9 +67,11 @@ def globals():
 
 @app.route("/getEvents", methods=['GET'])
 def getEvents():
+    global X
     #t = request.args.get('t') 
     e = events[-1]  # shortcut to last element
     e.x = X
+    app.logger.info('global X = '+str(X))
     app.logger.info('Sent Event : ' + str(e.x) + ',' + str(e.y) + ' Part : ' + str(e.part) + ' Icon : ' + e.icon)
     response = jsonify(vars(e))
     response.headers.add('Access-Control-Allow-Origin', '*')
