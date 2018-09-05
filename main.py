@@ -22,7 +22,6 @@ class StarDotStarEvent():
     
 
 events = [ ]
-X = 47.0
 eventId = 0.0
 app = Flask(__name__,static_url_path = "", static_folder = ".")
 app.config.from_pyfile('settings/development_settings.cfg')
@@ -67,10 +66,7 @@ def globals():
 
 @app.route("/getEvents", methods=['GET'])
 def getEvents():
-    global X
     e = events[-1]  # shortcut to last element
-    e.x = X
-    app.logger.info('global X = '+str(X))
     app.logger.info('Sent Event : ' + str(e.x) + ',' + str(e.y) + ' Part : ' + str(e.part) + ' Icon : ' + e.icon)
     response = jsonify(vars(e))
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -79,29 +75,14 @@ def getEvents():
 @app.route('/newEvent')
 def newEvent():
     global eventId
-    global X
     x = request.args.get('x',default = ' ', type = str) 
-    app.logger.info('arg x = '+str(x))
     y = request.args.get('y', default = ' ', type = str)  # float : fraction of 1 (0.xxx)
     p = request.args.get('part', default = 0, type = int)
     icon = request.args.get('icon', default = '*', type = str)
     eventId = eventId + 1.0
-    X = x
     events.append(StarDotStarEvent(float(x),float(y),p,icon,datetime.datetime.now(),eventId))
     app.logger.info('Appended Event : ' + str(x) + ',' + y + ' Part : ' + str(p)+ ' Icon : ' + icon)
     return ('', 204)
-    
-@app.after_request
-def add_header(r):
-    """
-    Add headers to both force latest IE rendering engine or Chrome Frame,
-    and also to cache the rendered page for 10 minutes.
-    """
-    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    r.headers["Pragma"] = "no-cache"
-    r.headers["Expires"] = "0"
-    r.headers['Cache-Control'] = 'public, max-age=0'
-    return r
   
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug = True, port = 4747)
