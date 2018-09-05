@@ -147,6 +147,7 @@
         }
             
         function onDragStop(sprite, pointer) {
+            game.debug.text( "dragStop at: ["+pointer.x+","+pointer.y+"]", 300, 400 );
             if (partNumber<1){  // when score only
                 IconPlaced(pointer,sprite.key);
                 sprite.destroy();
