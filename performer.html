@@ -130,7 +130,7 @@
         }
     
         function IconPlaced(pointer, spriteName) {
-            let x = pointer.x;
+            let x = Number((pointer.x).toFixed(2));
             let y = pointer.y;
       
             var xhr = new XMLHttpRequest();
