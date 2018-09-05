@@ -41,14 +41,10 @@ def serialize(obj):
 
 @app.route("/performer", methods=['GET'])
 def performer():
-    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
     return send_from_directory('.','performer.html')
     
 @app.route("/composer", methods=['GET'])
 def composer():
-    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
     return send_from_directory('.','performer.html')
     
 @app.route("/globals", methods=['GET'])
@@ -62,9 +58,7 @@ def getEvents():
     #t = request.args.get('t') 
     e = events[-1]  # shortcut to last element
     app.logger.info('Sent Event : ' + str(e.x) + ',' + str(e.y) + ' Part : ' + str(e.part) + ' Icon : ' + e.icon)
-    #returnJson = json.dumps(e, default=serialize)
     response = jsonify(vars(e))
-    #response = jsonify(returnJson)  # The latest event
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
     
@@ -79,6 +73,18 @@ def newEvent():
     events.append(StarDotStarEvent(x,float(y),p,icon,datetime.datetime.now(),eventId))
     app.logger.info('Appended Event : ' + str(x) + ',' + y + ' Part : ' + str(p)+ ' Icon : ' + icon)
     return ('', 204)
+    
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
   
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", debug = True, port = 4747)
