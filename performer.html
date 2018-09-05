@@ -132,7 +132,7 @@
         function IconPlaced(pointer, spriteName) {
             let x = Number((pointer.x).toFixed(2));
             let y = Number((pointer.y).toFixed(2));
-            game.debug.text( "IconPlaced at: ["+pointer.x+","+pointer.y+"]", 300, 400 );
+            game.debug.text( "IconPlaced at: ["+x+","+y+"]", 300, 400 );
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
