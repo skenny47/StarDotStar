@@ -26,11 +26,6 @@
             game.stage.backgroundColor = "0800ff";
             game.stage.disableVisibilityChange = true;
             
-            if(isComposer()){
-                game.debug.text( "Composer = true", 300, 300 );
-            }else{
-                game.debug.text( "Composer = false", 300, 300 );
-            }
             var partNumber = 0;
             var partIdentifier = getAllUrlParams().part;
             if (typeof partIdentifier != 'undefined'){
@@ -42,6 +37,11 @@
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         globals = JSON.parse(xhr.responseText);
+                        if (Number(globals.debug)==1){
+                            debug = true;
+                        }else{
+                            debug = false;
+                        }
                         if (debug==true){
                             game.debug.text( "global number of parts = "+globals.parts, 100, 280 );
                         }
@@ -59,7 +59,14 @@
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         globals = JSON.parse(xhr.responseText);
-                        game.debug.text( "parts = "+globals.parts, 100, 280 );
+                        if (Number(globals.debug)==1){
+                            debug = true;
+                        }else{
+                            debug = false;
+                        }
+                        if (debug==true){
+                            game.debug.text( "parts = "+globals.parts, 100, 280 );
+                        }
                         DrawGrid(game,0);
                         for (let i = 0; i < globals.icons.length; i++) {
                            game.load.image(globals.icons[i].name,'Images/'+globals.icons[i].fileName);
@@ -121,7 +128,9 @@
         function IconPlaced(pointer, spriteName) {
             let x = Number((pointer.x).toFixed(2));
             let y = Number((pointer.y).toFixed(2));
-            game.debug.text( "IconPlaced at: ["+x+" , "+y+"]", 300, 400 );
+            if (debug==true){
+                game.debug.text( "IconPlaced at: ["+x+" , "+y+"]", 300, 400 );
+            }
             let xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -284,7 +293,9 @@
     function PlaceEventIcon(game,iconName,x,y)
     {
       if (iconName.length > 0){
-         game.debug.text( "event at: ["+x+" , "+y+"]", 300, 300 );
+        if (debug==true){ 
+            game.debug.text( "event at: ["+x+" , "+y+"]", 300, 300 );
+        }
         let sprite = game.add.sprite(x,y, iconName);
         sprite.x -= sprite.width/2;
         sprite.y -= sprite.height/2;

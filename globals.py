@@ -1,6 +1,7 @@
 server_globals = {
     "parts" : "4",
     "lambda" : "1000",
+    "debug" : "0",
     "icons" : 
         [ 
             {"fileName" : "icons8-banana-50.png", "name" : "banana"},
