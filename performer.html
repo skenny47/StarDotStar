@@ -93,36 +93,31 @@
                     if (xhr.readyState == XMLHttpRequest.DONE) {
                         var event = JSON.parse(xhr.responseText);
                         if (event.id > LastEventIdProcessed){
-                            if (LastEventIdProcessed > 0){
-                                LastEventIdProcessed=event.id;
+                            LastEventIdProcessed=event.id;
+                            if (debug==true){
+                                game.debug.text("name="+event.icon+"["+event.x+","+event.y+"] Part :" + event.part, 100, 400 );
+                            }
+                            let y = 0;
+                            if (partNumber<1){ //showing score
+                                if (debug == true){
+                                    game.debug.text( "SCORE", 100, 100 );
+                                }
+                                y = convertEventYToAbsoluteY(event.y,event.part, globals.parts, game.height);
                                 if (debug==true){
-                                    game.debug.text("name="+event.icon+"["+event.x+","+event.y+"] Part :" + event.part, 100, 400 );
+                                    game.debug.text("converted y = "+ y, 100,600);
                                 }
-                                let y = 0;
-                                if (partNumber<1){ //showing score
-                                    if (debug == true){
-                                        game.debug.text( "SCORE", 100, 100 );
-                                    }
-                                    y = convertEventYToAbsoluteY(event.y,event.part, globals.parts, game.height);
-                                    if (debug==true){
-                                        game.debug.text("converted y = "+ y, 100,600);
-                                    }
-                                   PlaceEventIcon(game,event.icon,event.x,y);
-                                }else{ // showing single part
-                                    if (event.part==partNumber){
-                                        y = event.y * game.height;
-                                        PlaceEventIcon(game,event.icon,event.x,y);
-                                    }
-                                    if (debug == true){
-                                        game.debug.text( "PART "+ partNumber, 100, 100 );
-                                    }
+                               PlaceEventIcon(game,event.icon,event.x,y);
+                            }else{ // showing single part
+                                if (event.part==partNumber){
+                                    y = event.y * game.height;
+                                    PlaceEventIcon(game,event.icon,event.x,y);
                                 }
-                            }else{
-                                LastEventIdProcessed=event.id;
+                                if (debug == true){
+                                    game.debug.text( "PART "+ partNumber, 100, 100 );
+                                }
                             }
                         }
                     }
-                }
                 };
                 xhr.open('GET', homeBaseUrl + "/getEvents", true);
                 xhr.send(null);
